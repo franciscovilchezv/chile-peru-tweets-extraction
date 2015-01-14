@@ -46,7 +46,19 @@ def main():
     api = tweepy.API(auth)
 
     user = api.get_user("@christy080995")
-    print user.friends
+
+    ids = []
+
+    for page in tweepy.Cursor(api.friends, screen_name="christy080995").pages():
+        ids = []
+        ids.extend(page)
+        #print ids
+        for friend in ids:
+            print friend.screen_name
+
+
+
+
 
     for in_file in ARCHIVOS_ENTRADA:
 
