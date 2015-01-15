@@ -79,10 +79,11 @@ def main():
 
                 if peruano and not chileno:
                     output_presume_peru.write(to_JSON(var_json))
-                elif chileno and not peruano:
+                    continue
+                if chileno and not peruano:
                     output_presume_chile.write(to_JSON(var_json))
-                else:
-                    output_presume_null.write(to_JSON(var_json))
+                    continue
+                output_presume_none.write(to_JSON(var_json))
                 
             except:
                 pass
