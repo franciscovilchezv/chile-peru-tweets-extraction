@@ -55,31 +55,36 @@ def main():
             var_json        = json.loads(line)
 
             try:
+
+                peruano = False
+                chileno = False
+
                 if (re.search('#vamosperu', var_json["text"], re.IGNORECASE)):
-                    output_presume_peru.write(to_JSON(var_json))
-                    continue
+                    peruano = True
 
                 if (re.search(ur'#vamosperú', var_json["text"], re.IGNORECASE)):
-                    output_presume_peru.write(to_JSON(var_json))
-                    continue
+                    peruano = True
 
                 if (re.search('vamos peru', var_json["text"], re.IGNORECASE)):
-                    output_presume_peru.write(to_JSON(var_json))
-                    continue
+                    peruano = True
 
                 if (re.search(ur'vamos perú', var_json["text"], re.IGNORECASE)):
-                    output_presume_peru.write(to_JSON(var_json))
-                    continue
+                    peruano = True
 
                 if (re.search('#vamoschile', var_json["text"], re.IGNORECASE)):
-                    output_presume_chile.write(to_JSON(var_json))
-                    continue
+                    chileno = True
 
                 if (re.search('vamos chile', var_json["text"], re.IGNORECASE)):
-                    output_presume_chile.write(to_JSON(var_json))
-                    continue
+                    chileno = True
 
-                output_presume_none.write(to_JSON(var_json))
+                if (peruano and chileno):
+                    output_presume_none.write(to_JSON(var_json))
+                elif (peruano):
+                    output_presume_peru.write(to_JSON(var_json))
+                else:
+                    output_presume_chile.write(to_JSON(var_json))          
+
+                
             except:
                 pass
 
