@@ -10,12 +10,12 @@ import datetime
 #String
 import re
 
-ARCHIVO_SALIDA_PERU = '../../files/output_presume_peru.json'
-ARCHIVO_SALIDA_CHILE = '../../files/output_presume_chile.json'
-ARCHIVO_SALIDA_NONE = '../../files/output_presume_none.json'
+ARCHIVO_SALIDA_PERU = '../files/output_presume_peru.json'
+ARCHIVO_SALIDA_CHILE = '../files/output_presume_chile.json'
+ARCHIVO_SALIDA_NONE = '../files/output_presume_none.json'
 
 ARCHIVOS_ENTRADA = [
-    "../../files/output_timezone_null.json"
+    "../files/output_timezone_null.json"
 ]
 
 def to_JSON(tweet):
@@ -77,13 +77,12 @@ def main():
                 if (re.search('vamos chile', var_json["text"], re.IGNORECASE)):
                     chileno = True
 
-                if (peruano and chileno):
-                    output_presume_none.write(to_JSON(var_json))
-                elif (peruano):
+                if peruano and not chileno:
                     output_presume_peru.write(to_JSON(var_json))
+                elif chileno and not peruano:
+                    output_presume_chile.write(to_JSON(var_json))
                 else:
-                    output_presume_chile.write(to_JSON(var_json))          
-
+                    output_presume_null.write(to_JSON(var_json))
                 
             except:
                 pass
